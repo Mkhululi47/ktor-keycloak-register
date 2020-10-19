@@ -4,7 +4,6 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import org.keycloak.OAuth2Constants
-import org.keycloak.admin.client.Keycloak
 import org.keycloak.admin.client.KeycloakBuilder
 import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
@@ -37,6 +36,8 @@ fun Application.module(testing: Boolean = false) {
             password.isTemporary = false
             password.type = CredentialRepresentation.PASSWORD
             password.value = "this-is-a-very-strong-password"
+
+            user.credentials = listOf(password)
 
             val realmResource = keycloak.realm("master")
             val usersResource = realmResource.users()
